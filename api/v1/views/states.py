@@ -76,8 +76,14 @@ def update_state(state_id=None):
 
     if req:
         state = storage.get(State, state_id)
-        setattr(state, 'name', req['name'])
-        state.save()
-        return make_response(jsonify(state.to_dict()), 200)
+
+        if state:
+            setattr(state, 'name', req['name'])
+            state.save()
+            return make_response(jsonify(state.to_dict()), 200)
+
+        else:
+            return make_response(jsonify({"error": "Not found"}), 404)
+
     else:
         return make_response(jsonify("Not a JSON"), 400)
