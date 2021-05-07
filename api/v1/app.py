@@ -5,6 +5,7 @@ from flask import Flask
 from models import storage
 from flask import Blueprint
 from api.v1.views import app_views
+from flask import jsonify
 
 app = Flask(__name__)
 app.register_blueprint(app_views)
@@ -19,7 +20,7 @@ def teardown_appcontext_func(error):
 @app.errorhandler(404)
 def page_not_found(e):
     """ Custon error 404 handler """
-    return ('{\n  "error": "Not found"\n}\n'), 404
+    return (jsonify({"error": "Not found"}), 404)
 
 
 if __name__ == "__main__":
