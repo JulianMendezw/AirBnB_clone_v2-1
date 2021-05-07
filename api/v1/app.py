@@ -9,19 +9,18 @@ from api.v1.views import app_views
 app = Flask(__name__)
 app.register_blueprint(app_views)
 
+
 @app.teardown_appcontext
 def teardown_appcontext_func(error):
     """ Close the session """
     storage.close()
+
 
 @app.errorhandler(404)
 def page_not_found(e):
     """ Custon error 404 handler """
     return ('{\n  "error": "Not found"\n}\n'), 404
 
-@app.route("/states")
-def main():
-    return "Hola estos son los states"
 
 if __name__ == "__main__":
     host = "0.0.0.0"

@@ -9,6 +9,7 @@ from flask import make_response
 from flask import jsonify
 from flask import request
 
+
 @app_views.route("/states/<state_id>")
 @app_views.route("/states/")
 def all_states(state_id=None):
@@ -29,6 +30,7 @@ def all_states(state_id=None):
             mylist.append(dicty_values)
         return str(mylist)
 
+
 @app_views.route("/states/<state_id>", methods=["DELETE"])
 def delete_state(state_id=None):
     """ return empty dictionary with status code 200 """
@@ -42,11 +44,13 @@ def delete_state(state_id=None):
     res = make_response(jsonify({"error": "Not found"}), 404)
     return res
 
-@app_views.route('/states/',methods = ['POST'])
+
+@app_views.route('/states/', methods=['POST'])
 def post_state():
     """ Creates a State"""
     req = request.get_json()
-    print(type(req))
-    return "___"
+    if typeof(req) == dict:
+
+        return "___"
     res = make_response(jsonify({}), 201)
     return res
