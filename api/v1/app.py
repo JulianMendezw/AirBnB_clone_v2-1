@@ -18,7 +18,7 @@ def teardown_appcontext_func(error):
 
 
 @app.errorhandler(404)
-def page_not_found(e):
+def page_not_found(error):
     """ Custon error 404 handler """
     return make_response(jsonify({"error": "Not found"}), 404)
 
