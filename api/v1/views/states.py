@@ -35,7 +35,8 @@ def all_states(state_id=None):
         return make_response(jsonify(mylist))
 
 
-@app_views.route("/states/<state_id>", methods=["DELETE"], strict_slashes=False)
+@app_views.route("/states/<state_id>", methods=["DELETE"],
+                 strict_slashes=False)
 def delete_state(state_id=None):
     """ Deleted if a object exist with code 200 otherwise raise error 404 """
     key = "State.{}".format(state_id)
@@ -74,9 +75,9 @@ def update_state(state_id=None):
     req = request.get_json()
 
     if req:
-            state = storage.get(State, state_id)
-            setattr(state, 'name', req['name'])
-            state.save()
-            return make_response(jsonify(state.to_dict()), 200)
+        state = storage.get(State, state_id)
+        setattr(state, 'name', req['name'])
+        state.save()
+        return make_response(jsonify(state.to_dict()), 200)
     else:
         return make_response(jsonify("Not a JSON"), 400)
