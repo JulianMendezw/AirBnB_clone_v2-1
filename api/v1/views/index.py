@@ -30,17 +30,9 @@ def return_stats():
         "users": User
     }
 
-    json_objs = ''
-    json_objs += ("{\n")
+    count_objs = {}
 
     for key, value in obj_classes.items():
-        count_obj = storage.count(value)
-        str_obj = '  \"' + key + '\"' + ': ' + "{}".format(count_obj)
-        json_objs += str_obj
+        count_objs[key] = storage.count(value)
 
-        if key != 'users':
-            json_objs += ',\n'
-
-    json_objs += '\n}\n'
-
-    return(json_objs)
+    return(make_response(jsonify(count_objs)))
