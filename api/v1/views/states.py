@@ -46,6 +46,7 @@ def delete_state(state_id=None):
     if key in dicty_all.keys():
         dicty = storage.get(State, state_id)
         storage.delete(dicty)
+        storage.save()
         return make_response(jsonify({}), 200)
 
     return make_response(jsonify({"error": "Not found"}), 404)
