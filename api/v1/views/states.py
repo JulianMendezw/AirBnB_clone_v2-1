@@ -20,8 +20,7 @@ def get_state(state_id=None):
         return make_response(jsonify({"error": "Not found"}), 404)
 
     else:
-        dicty = dicty.to_dict()
-        return make_response(jsonify(dicty))
+        return make_response(jsonify(dicty.to_dict()))
 
 
 @app_views.route("/states", methods=["GET"], strict_slashes=False)
@@ -46,7 +45,7 @@ def delete_state(state_id=None):
 
     if key in dicty_all.keys():
         dicty = storage.get(State, state_id)
-        dicty = dicty.delete()
+        storage.delete(dicty)
         return make_response(jsonify({}), 200)
 
     return make_response(jsonify({"error": "Not found"}), 404)
