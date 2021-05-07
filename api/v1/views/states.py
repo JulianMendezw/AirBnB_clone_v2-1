@@ -70,21 +70,23 @@ def post_state():
 
 
 @app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
-def update_state(state_id=None):
-    """ Update a State """
+def put_state(state_id):
+    """
+    Updates a State
+    """
+    state = storage.get(State, state_id)
 
-    req = request.get_json()
+    if not state:
+        abort(404)
 
-    if req:
-        state = storage.get(State, state_id)
+    if not request.get_json():
+        abort(400, description="Not a JSON")
 
-        if state:
-            setattr(state, 'name', req['name'])
-            state.save()
-            return make_response(jsonify(state.to_dict()), 200)
+    ignore = ['id', 'created_at', 'updated_at']
 
-        else:
-            return make_response(jsonify({"error": "Not found"}), 404)
-
-    else:
-        return make_response(jsonify("Not a JSON"), 400)
+    data = request.get_json()
+    for key, value in data.items():
+        if key not in ignore:
+            setattr(state, key, value)
+    storage.save()
+    return make_response(jsonify(state.to_dict()), 200)
