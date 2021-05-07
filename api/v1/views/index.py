@@ -10,10 +10,11 @@ from models.state import State
 from models.user import User
 from flask import make_response, jsonify
 
+
 @app_views.route('/status')
 def return_json():
     """ Return a json status """
-    res = make_response(jsonify({"status": "Ok"}), 200)
+    res = make_response(jsonify({"status": "Ok"}))
     return res
 
 
