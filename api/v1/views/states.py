@@ -10,47 +10,76 @@ from flask import jsonify
 from flask import request
 
 
-@app_views.route("/states/<state_id>")
-@app_views.route("/states/")
+@app_views.route("/states/<state_id>", methods=["GET"], strict_slashes=False)
+@app_views.route("/states", methods=["GET"], strict_slashes=False)
 def all_states(state_id=None):
-    """ retrieve the list of all State objects """
-    mylist = []
+    """ retrieve the list of all State objects or one state by id """
+
     if (state_id):
         dicty = storage.get(State, state_id)
+
         if dicty is None:
-            res = make_response(jsonify({"error": "Not found"}), 404)
-            return res
+            return make_response(jsonify({"error": "Not found"}), 404)
+
         else:
             dicty = dicty.to_dict()
-            return dicty
+            return make_response(jsonify(dicty))
+
     else:
+        mylist = []
         dicty_all = storage.all(State)
+
         for key, value in dicty_all.items():
-            dicty_values = value.to_dict()
-            mylist.append(dicty_values)
-        return str(mylist)
+            mylist.append(value.to_dict())
+
+        return make_response(jsonify(mylist))
 
 
-@app_views.route("/states/<state_id>", methods=["DELETE"])
+@app_views.route("/states/<state_id>", methods=["DELETE"], strict_slashes=False)
 def delete_state(state_id=None):
-    """ return empty dictionary with status code 200 """
+    """ Deleted if a object exist with code 200 otherwise raise error 404 """
     key = "State.{}".format(state_id)
     dicty_all = storage.all(State)
+
     if key in dicty_all.keys():
         dicty = storage.get(State, state_id)
         dicty = dicty.delete()
-        res = make_response(jsonify({}))
-        return res
-    res = make_response(jsonify({"error": "Not found"}), 404)
-    return res
+        return make_response(jsonify({}), 200)
+
+    return make_response(jsonify({"error": "Not found"}), 404)
 
 
-@app_views.route('/states/', methods=['POST'])
+@app_views.route('/states', methods=['POST'], strict_slashes=False)
 def post_state():
     """ Creates a State"""
     req = request.get_json()
-    if typeof(req) == dict:
 
-        return "___"
-    res = make_response(jsonify({}), 201)
-    return res
+    if req:
+        if req['name']:
+            new_state = State(**req)
+            new_state.save()
+            return make_response(jsonify(new_state.to_dict()), 201)
+
+        else:
+            return make_response(jsonify("Missing name"), 400)
+
+    else:
+        return make_response(jsonify("Not a JSON"), 400)
+
+
+@app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
+def update_state(state_id=None):
+    """ Update a State """
+
+    req = request.get_json()
+
+    if req:
+            state = storage.get(State, state_id)
+            print(state)
+            print('----------------------------')
+            setattr(state, 'name', req['name'])
+            print(state)
+            state.save()
+            return make_response(jsonify(state.to_dict()), 200)
+    else:
+        return make_response(jsonify("Not a JSON"), 400)
