@@ -19,6 +19,9 @@ def page_not_found(e):
     """ Custon error 404 handler """
     return ('{\n  "error": "Not found"\n}\n'), 404
 
+@app.route("/states")
+def main():
+    return "Hola estos son los states"
 
 if __name__ == "__main__":
     host = "0.0.0.0"
