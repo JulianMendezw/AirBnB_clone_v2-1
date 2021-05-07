@@ -40,11 +40,10 @@ def all_states():
                  strict_slashes=False)
 def delete_state(state_id=None):
     """ Deleted if a object exist with code 200 otherwise raise error 404 """
-    key = "State.{}".format(state_id)
-    dicty_all = storage.all(State)
 
-    if key in dicty_all.keys():
-        dicty = storage.get(State, state_id)
+    dicty = storage.get(State, state_id)
+
+    if dicty:
         storage.delete(dicty)
         storage.save()
         return make_response(jsonify({}), 200)
