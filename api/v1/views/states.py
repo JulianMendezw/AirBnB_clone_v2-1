@@ -75,10 +75,7 @@ def update_state(state_id=None):
 
     if req:
             state = storage.get(State, state_id)
-            print(state)
-            print('----------------------------')
             setattr(state, 'name', req['name'])
-            print(state)
             state.save()
             return make_response(jsonify(state.to_dict()), 200)
     else:
