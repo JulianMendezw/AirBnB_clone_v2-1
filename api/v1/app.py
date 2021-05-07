@@ -23,8 +23,6 @@ def page_not_found(e):
 
 
 if __name__ == "__main__":
-    host = "0.0.0.0"
-    port = '5000'
 
     if os.getenv('HBNB_API_HOST') == "0.0.0.0":
         host = os.getenv('HBNB_API_HOST')
