@@ -8,12 +8,13 @@ from models.place import Place
 from models.review import Review
 from models.state import State
 from models.user import User
-
+from flask import make_response, jsonify
 
 @app_views.route('/status')
 def return_json():
     """ Return a json status """
-    return '{\n  "status": "OK"\n}\n'
+    res = make_response(jsonify({"status": "Ok"}), 200)
+    return res
 
 
 @app_views.route('/stats')
