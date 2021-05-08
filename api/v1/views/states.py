@@ -81,7 +81,7 @@ def update_state(state_id=None):
             list_ignore = ["id", "created_at", "update_at"]
             for key, value in req.items():
                 if key not in list_ignore:
-                    setattr(user, key, value)
+                    setattr(state, key, value)
             state.save()
             return make_response(jsonify(state.to_dict()), 200)
 
