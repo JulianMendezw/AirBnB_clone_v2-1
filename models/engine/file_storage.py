@@ -83,5 +83,5 @@ class FileStorage:
             count = 0
             objs = models.storage.all(cls)
             return len(objs)
-
-        return len(self.all())
+        else:
+            return len(models.storage.all())
