@@ -57,7 +57,7 @@ def post_state():
     req = request.get_json()
 
     if req:
-        if req['name']:
+        if 'name' in req:
             new_state = State(**req)
             new_state.save()
             return make_response(jsonify(new_state.to_dict()), 201)
