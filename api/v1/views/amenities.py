@@ -61,7 +61,7 @@ def post_amenity():
     req = request.get_json()
 
     if req:
-        if req['name']:
+        if 'name' in req:
             new_amenity = Amenity(**req)
             new_amenity.save()
             return make_response(jsonify(new_amenity.to_dict()), 201)
