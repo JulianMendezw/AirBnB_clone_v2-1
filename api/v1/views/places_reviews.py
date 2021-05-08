@@ -32,7 +32,8 @@ def all_reviews(place_id=None):
     return make_response(jsonify(mylist))
 
 
-@app_views.route("/reviews/<review_id>", methods=["GET"], strict_slashes=False)
+@app_views.route("/reviews/<review_id>", methods=["GET"],
+                 strict_slashes=False)
 def get_review(review_id=None):
     """ get a review by id """
 
@@ -92,7 +93,8 @@ def post_review(place_id=None):
         return make_response(jsonify("Not a JSON"), 400)
 
 
-@app_views.route('/reviews/<review_id>', methods=['PUT'], strict_slashes=False)
+@app_views.route('/reviews/<review_id>', methods=['PUT'],
+                 strict_slashes=False)
 def update_review(review_id=None):
     """ Update a place """
 
@@ -102,7 +104,8 @@ def update_review(review_id=None):
         review = storage.get(Review, review_id)
         print(review)
         if review:
-            list_ignore = ["id", "user_id", "place_id", "created_at", "update_at"]
+            list_ignore = [
+                "id", "user_id", "place_id", "created_at", "update_at"]
             for key, value in req.items():
                 if key not in list_ignore:
                     setattr(review, key, value)
