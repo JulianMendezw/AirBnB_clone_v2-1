@@ -15,6 +15,7 @@ def all_amenities():
     """ retrieve the list of all Amenity objects"""
 
     mylist = []
+
     dicty_all = storage.all(Amenity)
 
     for key, value in dicty_all.items():
@@ -52,7 +53,8 @@ def delete_aminity(amenity_id=None):
         return make_response(jsonify({}), 200)
 
 
-@app_views.route('/amenities', methods=['POST'], strict_slashes=False)
+@app_views.route('/amenities', methods=['POST'],
+                 strict_slashes=False)
 def post_amenity():
     """ Creates a Amenity"""
     req = request.get_json()
@@ -70,7 +72,8 @@ def post_amenity():
         return make_response(jsonify("Not a JSON"), 400)
 
 
-@app_views.route('/amenities/<amenity_id>', methods=['PUT'], strict_slashes=False)
+@app_views.route('/amenities/<amenity_id>', methods=['PUT'],
+                 strict_slashes=False)
 def update_amenity(amenity_id=None):
     """ Update a amenity """
 
@@ -86,8 +89,7 @@ def update_amenity(amenity_id=None):
             for key, value in req.items():
                 if key not in list_ignore:
                     setattr(amenity, key, value)
-
-            storage.save()
+            amenity.save()
             return make_response(jsonify(amenity.to_dict()), 200)
 
         else:
