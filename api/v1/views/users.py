@@ -57,10 +57,10 @@ def post_user():
     req = request.get_json()
 
     if req:
-        if not req['email']:
+        if 'email' not in req:
             return make_response(jsonify("Missing email"), 400)
-        if not req ['password']:
-            return make_response(jsonify("Missin password"), 400)
+        if 'password' not in req:
+            return make_response(jsonify("Missing password"), 400)
         else:
             new_user = User(**req)
             new_user.save()
