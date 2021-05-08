@@ -77,7 +77,11 @@ class DBStorage:
         self.__session.remove()
 
     def get(self, cls, id):
-        """ A method to retrieve one object by state and object id """
+        """
+        A method to retrieve one object by state and object id
+        cls: any clas of the db_storage
+        id: specific id for the class
+        """
         dict_objects = self.all(cls)
         for key, value in dict_objects.items():
             if value.id == id:
