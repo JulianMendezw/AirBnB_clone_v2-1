@@ -77,9 +77,11 @@ def update_state(state_id=None):
 
     if req:
         state = storage.get(State, state_id)
-
         if state:
-            setattr(state, 'name', req['name'])
+            list_ignore = ["id", "created_at", "update_at"]
+            for key, value in req.items():
+                if key not in list_ignore:
+                    setattr(user, key, value)
             state.save()
             return make_response(jsonify(state.to_dict()), 200)
 
