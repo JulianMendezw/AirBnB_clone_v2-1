@@ -24,7 +24,8 @@ def all_amenities():
     return make_response(jsonify(mylist))
 
 
-@app_views.route("/amenities/<amenity_id>", methods=["GET"], strict_slashes=False)
+@app_views.route("/amenities/<amenity_id>", methods=["GET"],
+                 strict_slashes=False)
 def get_amenity(amenity_id=None):
     """ get a Amenity by id """
 
