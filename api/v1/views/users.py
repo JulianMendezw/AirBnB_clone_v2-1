@@ -74,12 +74,14 @@ def update_user(user_id=None):
     """ Update a user """
 
     req = request.get_json()
-
     if req:
         user = storage.get(User, user_id)
 
         if user:
-            setattr(user, 'password', req['password'])
+            list_ignore = ["id", "email", "created_at", "update_at"]
+            for key, value in req.items():
+                if key not in list_ignore:
+                    setattr(user, key, value)
             user.save()
             return make_response(jsonify(user.to_dict()), 200)
 
