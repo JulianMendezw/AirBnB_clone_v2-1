@@ -32,7 +32,8 @@ def all_places(city_id):
     return make_response(jsonify(mylist))
 
 
-@app_views.route("/places/<place_id>", methods=["GET"], strict_slashes=False)
+@app_views.route("/places/<place_id>", methods=["GET"],
+                 strict_slashes=False)
 def get_place(place_id=None):
     """ get a user by id """
 
@@ -77,7 +78,7 @@ def post_place(city_id=None):
         if 'name' not in req:
             return make_response(jsonify("Missing name"), 400)
 
-        user = storage.get(User, req.user_id)
+        user = storage.get(User, req['user_id'])
         if user is None:
             return make_response(jsonify({"error": "Not found"}), 404)
 
@@ -91,7 +92,8 @@ def post_place(city_id=None):
         return make_response(jsonify("Not a JSON"), 400)
 
 
-@app_views.route('/places/<place_id>', methods=['PUT'], strict_slashes=False)
+@app_views.route('/places/<place_id>', methods=['PUT'],
+                 strict_slashes=False)
 def update_place(place_id=None):
     """ Update a place """
 
