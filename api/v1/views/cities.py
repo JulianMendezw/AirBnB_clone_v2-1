@@ -10,7 +10,9 @@ from flask import make_response
 from flask import jsonify
 from flask import request
 
-@app_views.route("/states/<state_id>/cities", methods=["GET"], strict_slashes=False)
+
+@app_views.route("/states/<state_id>/cities", methods=["GET"],
+                 strict_slashes=False)
 def all_cities(state_id=None):
     """ retrieve the list of all State objects"""
 
@@ -57,7 +59,8 @@ def delete_city(city_id=None):
     return make_response(jsonify({"error": "Not found"}), 404)
 
 
-@app_views.route('states/<state_id>/cities', methods=['POST'], strict_slashes=False)
+@app_views.route('states/<state_id>/cities', methods=['POST'],
+                 strict_slashes=False)
 def post_city(state_id=None):
     """ Creates a City"""
 
