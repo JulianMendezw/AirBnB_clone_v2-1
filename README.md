@@ -1,5 +1,18 @@
-# AirBnB Clone - The Console
+<div align="center"><img src="https://i.ibb.co/ZxTtZxK/AIRBNB.png"></div>
+
+
+### The Console
 The console is the first segment of the AirBnB project at Holberton School that will collectively cover fundamental concepts of higher level programming. The goal of AirBnB project is to eventually deploy our server a simple copy of the AirBnB Website(HBnB). A command interpreter is created in this segment to manage objects for the AirBnB(HBnB) website.
+
+### Web static
+This is the frond end of Airbnb, we create a simple HTML static page, with style guide, fake contents, No Javascript, No data loaded from anything.
+During this project, we will learn how to manipulate HTML and CSS languages. HTML is the structure of the page, it should be the first thing to write. CSS is the styling of the page, the design.
+
+### MySQL
+We replace the filestorage by a Database storage and map our models to a table in database by using an O.R.M.
+
+### Web framework
+We will use Fabric (for Python3). Fabric is a Python library and command-line tool for streamlining the use of SSH for application deployment or systems administration tasks. It provides a basic suite of operations for executing local or remote shell commands (normally or via sudo) and uploading/downloading files, as well as auxiliary functionality such as prompting the running user for input, or aborting execution. This concept is important: execute commands locally or remotely. Locally means in your laptop (physical laptop or inside your Vagrant), and Remotely means on your server(s). Fabric is taking care of all network connections (SSH, SCP etc.), it’s an easy tool for transferring, executing, etc. commands from locale to a remote server.
 
 #### Functionalities of this command interpreter:
 * Create a new object (ex: a new User or a new Place)
